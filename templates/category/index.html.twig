@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CategoryController!{% endblock %}
+
+{% block body %}
+<div class="example-wrapper">
+    <h1>Listado de categorias de producto</h1>
+    <div class="row">
+        <a href="/category/new" class="btn btn-success" >Crear</a>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table" id="tableCategory">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Codigo</th>
+                    <th>Nombre</th>
+                    <th>Descripcion</th>
+                    <th>Activo</th>
+                    <th>Acciones</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for category in categories %}
+                    <tr>
+                        <td>{{category.id}}</td>
+                        <td>{{category.code}}</td>
+                        <td>{{category.name}}</td>
+                        <td>{{category.description}}</td>
+                        <td>{% if category.active== 1 %} SI {% else %} NO {% endif %}</td>
+                        <td>        
+                            <a href="{{ path('categoryEdit', {
+                                    id: category.id
+                                }) }}" class="btn btn-warning">
+                                Editar
+                            </a>
+                            <a href="{{ path('categoryDeleted', {
+                                    id: category.id
+                                }) }}" class="btn btn-danger">
+                                Eliminar
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function() {
+        $('#tableCategory').DataTable();
+    })
+</script>
+{% endblock %}

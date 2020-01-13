@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CategoryController!{% endblock %}
+
+{% block body %}
+<div class="example-wrapper">
+    <h1>Listado de productos</h1>
+    <div class="row">
+        <a href="/product/new" class="btn btn-success" >Crear</a>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table" id="tableProduct">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Codigo</th>
+                        <th>Nombre</th>
+                        <th>Descripcion</th>
+                        <th>Marca</th>
+                        <th>Categoria</th>
+                        <th>Precio</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for product in products %}
+                    <tr>
+                        <td>{{product.id}}</td>
+                        <td>{{product.code}}</td>
+                        <td>{{product.name}}</td>
+                        <td>{{product.description}}</td>
+                        <td>{{product.make}}</td>
+                        <td>{{product.category.name}}</td>
+                        <td>{{product.price}}</td>
+                        <td>        
+                            <a href="{{ path('productEdit', {
+                                    id: product.id
+                                }) }}" class="btn btn-warning">
+                                Editar
+                            </a>
+                            <button data-productid="{{product.id}}" type="button" id="btnDeleteProduct" class="btn btn-danger" data-toggle="modal" data-target="#deleteProduct">
+                                Eliminar
+                            </button>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="deleteProduct" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Eliminar Producto</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Esta Seguro de Eliminar el Producto <span id="textProduct"></span> ?
+        <input type="hidden" id="productId" />
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="button" id="btnConfirmDelete" class="btn btn-primary">Confirmar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+    $(document).ready(function() {
+        $('#tableProduct').DataTable();
+        $('#btnDeleteProduct').on('click', function() {
+            $('#productId').val($(this).data('productid'));
+            $('#textProduct').text($(this).data('productid'));
+        });
+        $('#btnConfirmDelete').on('click', function() {
+            location.href = '/product/' + $('#productId').val() + '/delete'
+        });
+    })
+</script>
+{% endblock %}

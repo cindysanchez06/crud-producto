@@ -1,0 +1,14 @@
+<div class="example-wrapper">
+    <h1>{{title}}</h1>
+    {{ form_start(form) }}
+        {{ form_row(form.code) }}
+        {{ form_row(form.name) }}
+        {{ form_row(form.description) }}
+        {{ form_row(form.make) }}
+        {{ form_row(form.price) }}
+        {{ form_row(form.category) }}
+    {{ form_end(form) }}
+</div>
+<div class="example-wrapper">
+    <a href="/product" class="pull-right btn btn-warning">Atras</a>
+</div>
