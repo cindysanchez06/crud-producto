@@ -40,7 +40,7 @@
                                 }) }}" class="btn btn-warning">
                                 Editar
                             </a>
-                            <button data-productid="{{product.id}}" type="button" id="btnDeleteProduct" class="btn btn-danger" data-toggle="modal" data-target="#deleteProduct">
+                            <button data-productid="{{product.id}}" type="button" class="btn btn-danger btnDeleteProduct" data-toggle="modal" data-target="#deleteProduct">
                                 Eliminar
                             </button>
                         </td>
@@ -77,7 +77,7 @@
 <script>
     $(document).ready(function() {
         $('#tableProduct').DataTable();
-        $('#btnDeleteProduct').on('click', function() {
+        $('.btnDeleteProduct').on('click', function() {
             $('#productId').val($(this).data('productid'));
             $('#textProduct').text($(this).data('productid'));
         });
