@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello CategoryController!{% endblock %}
+{% block title %}Lista Productos{% endblock %}
 
 {% block body %}
 <div class="example-wrapper">
@@ -40,9 +40,11 @@
                                 }) }}" class="btn btn-warning">
                                 Editar
                             </a>
-                            <button data-productid="{{product.id}}" type="button" id="btnDeleteProduct" class="btn btn-danger" data-toggle="modal" data-target="#deleteProduct">
+                            <a href="{{ path('productDeleted', {
+                                    id: product.id
+                                }) }}" class="btn btn-danger">
                                 Eliminar
-                            </button>
+                            </a>
                         </td>
                     </tr>
                 {% endfor %}
@@ -51,39 +53,9 @@
         </div>
     </div>
 </div>
-
-
-<!-- Modal -->
-<div class="modal fade" id="deleteProduct" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Eliminar Producto</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        Esta Seguro de Eliminar el Producto <span id="textProduct"></span> ?
-        <input type="hidden" id="productId" />
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <button type="button" id="btnConfirmDelete" class="btn btn-primary">Confirmar</button>
-      </div>
-    </div>
-  </div>
-</div>
 <script>
     $(document).ready(function() {
         $('#tableProduct').DataTable();
-        $('#btnDeleteProduct').on('click', function() {
-            $('#productId').val($(this).data('productid'));
-            $('#textProduct').text($(this).data('productid'));
-        });
-        $('#btnConfirmDelete').on('click', function() {
-            location.href = '/product/' + $('#productId').val() + '/delete'
-        });
     })
 </script>
 {% endblock %}
